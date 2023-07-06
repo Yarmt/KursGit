@@ -3,12 +3,13 @@ package com.example.kurs2;
 public class Const {
     //если не переопредилить константы под свою таблицу,
     // то будут ошибки
-    public static final String USER_TABLE = "user";
-    public static final String USER_ID = "iduser";
-    public static final String USER_FIRSTNAME = "firstname";
-    public static final String USER_LASTNAME = "lastname";
-    public static final String USER_PASSWORD = "password";
-    public static final String USER_LOCATION = "location";
+    public static final String Регистариция = "reg";
+    public static final String id = "iduser";
+    public static final String Имя = "firstname";
+    public static final String Номер_телефона = "lastname";
+    public static final String Адресс = "adress";
+    public static final String Логин = "login";
+    public static final String Пароль = "password";
 
 
 }

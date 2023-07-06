@@ -1,20 +1,19 @@
 package com.example.kurs2;
-<<<<<<< HEAD
 
-//import javax.crypto.SecretKeyFactory;
-//import javax.crypto.spec.PBEKeySpec;
-//import java.security.NoSuchAlgorithmException;
-//import java.security.SecureRandom;
-//import java.security.spec.InvalidKeySpecException;
-//import java.security.spec.KeySpec;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import java.nio.file.Path;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.sql.*;
+
+import static java.nio.file.Files.exists;
 
 public class DatabaseHandler extends Configs{
     private static Connection connection;
-    private static final String DB_URL = "jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2292_restorsan";
+    private static final String DB_URL = "jdbc:mysql://std-mysql.ist.mospolytech.ru:22/std_2292_restorsan";
     private static final String DB_USER = "std_2292_restorsan";
     private static final String DB_PASSWORD = "12345678";
     public DatabaseHandler() {
@@ -32,6 +31,33 @@ public class DatabaseHandler extends Configs{
     public static Connection getConnection() {
         return connection;
     }
+    public void signup(User user) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
+        if (exists(Path.of(user.getUsername()))) return;
+        String insert = "INSERT INTO Users(id, password, name, address, number) VALUES ('" + user.getUsername() + "','" + passwordHashing(user.getPassword()) + "', 1,'" + user.getName() + "','" + user.getAddress() + "','" + user.getNumber() + "')";
+        PreparedStatement prst = connection.prepareStatement(insert);
+        prst.executeUpdate();
+    }
+
+    public ResultSet getUser(User user) throws NoSuchAlgorithmException, InvalidKeySpecException, SQLException {
+        ResultSet rs;
+        String select = "SELECT * FROM Users WHERE username = '" + user.getUsername() + "' AND password = '" + user.getPassword() + "';";
+        PreparedStatement prst = connection.prepareStatement(select);
+        rs = prst.executeQuery();
+        return rs;
+    }
+    public static String passwordHashing(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        byte[] hash = factory.generateSecret(spec).getEncoded();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte b : hash) {
+            stringBuilder.append(b);
+        }
+        return stringBuilder.toString();
+    }
+
 //    public void singUpUser(String firstName) throws SQLException, ClassNotFoundException {
 //        //продолжить Стринги
 //        String insert = "INSERT INTO "+ Const.USER_TABLE+"("+Const.USER_LASTNAME+
@@ -48,21 +74,17 @@ public class DatabaseHandler extends Configs{
 ////        }
 //
 //    }
-=======
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
-public class DatabaseHandler extends Configs{
-    Connection dbConnection;
-    public Connection getDbConnection() throws ClassNotFoundException, SQLException {
-        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
-
-        Class.forName("com.mysql.jdbc.Driver");
-
-        dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
-
-        return dbConnection;
-    }
->>>>>>> origin/master
+//public class DatabaseHandler extends Configs{
+//    Connection dbConnection;
+//    public Connection getDbConnection() throws ClassNotFoundException, SQLException {
+//        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
+//
+//        Class.forName("com.mysql.jdbc.Driver");
+//
+//        dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+//
+//        return dbConnection;
+//    }
+//>>>>>>> origin/master
 }
