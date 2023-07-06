@@ -13,7 +13,7 @@ import static java.nio.file.Files.exists;
 
 public class DatabaseHandler extends Configs{
     private static Connection connection;
-    private static final String DB_URL = "jdbc:mysql://std-mysql.ist.mospolytech.ru:22/std_2292_restorsan";
+    private static final String DB_URL = "jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2292_restorsan";
     private static final String DB_USER = "std_2292_restorsan";
     private static final String DB_PASSWORD = "12345678";
     public DatabaseHandler() {

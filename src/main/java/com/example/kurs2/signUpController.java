@@ -1,5 +1,6 @@
 package com.example.kurs2;
 
+import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -7,12 +8,13 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-
-import static sun.jvm.hotspot.ci.ciKlass.nameField;
+import javafx.stage.Stage;
 
 public class signUpController {
 
@@ -52,6 +54,26 @@ public class signUpController {
         assert signUpPassword != null : "fx:id=\"signUpPassword\" was not injected: check your FXML file 'signUp.fxml'.";
         assert signUpPhone != null : "fx:id=\"signUpPhone\" was not injected: check your FXML file 'signUp.fxml'.";
         assert signUpAdress != null : "fx:id=\"signUpPost\" was not injected: check your FXML file 'signUp.fxml'.";
+        DatabaseHandler.getConnection();
+
+        authSingUpButton.setOnAction(actionEvent -> {
+            signUpNewUser();
+
+            authSingUpButton.getScene().getWindow().hide();
+
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/login.fxml"));
+            try {
+                fxmlLoader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Parent root = fxmlLoader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+    });
+}
         private void signUpNewUser() {
             try {
                 DatabaseHandler dbHandler = new DatabaseHandler();
@@ -66,12 +88,11 @@ public class signUpController {
             }
         }
 
-
+}
 //        DatabaseHandler dbHandler = new DatabaseHandler();
 //        authSingUpButton.setOnAction(event ->{
 //            dbHandler.singUpUser(signUpName.getText());
 //                });
         //
-    }
+//    }
 
-}
