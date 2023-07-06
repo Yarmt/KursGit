@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -31,6 +32,8 @@ public class Controller {
 
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private TextField loginsField;
 
     @FXML
     void initialize() {
@@ -38,6 +41,19 @@ public class Controller {
         assert loginField != null : "fx:id=\"loginField\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert loginSingUpButton != null : "fx:id=\"loginSingUpButton\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert passwordField != null : "fx:id=\"passwordField\" was not injected: check your FXML file 'hello-view.fxml'.";
+
+        authSingUpButton.setOnAction(actionEvent -> {
+            String loginText = loginsField.getText().trim();
+            String loginPassword = passwordField.getText().trim();
+
+            if (!loginText.equals("") && !(loginPassword.equals(""))){
+                loginUser(loginText, loginPassword);
+            }else {
+                System.out.println("Login and Password is empty");
+            }
+
+        });
+
         loginSingUpButton.setOnAction(event -> {
             loginSingUpButton.getScene().getWindow().hide();
 
@@ -54,6 +70,10 @@ public class Controller {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         });
+
+    }
+
+    private void loginUser(String loginText, String loginPassword) {
 
     }
 

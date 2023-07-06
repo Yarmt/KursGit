@@ -3,6 +3,7 @@ package com.example.kurs2;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -35,7 +36,7 @@ public class signUpController {
     private TextField signUpPhone;
 
     @FXML
-    private TextField signUpPost;
+    private TextField signUpAdress;
 
     @FXML
     void initialize() {
@@ -45,8 +46,15 @@ public class signUpController {
         assert signUpName != null : "fx:id=\"signUpName\" was not injected: check your FXML file 'signUp.fxml'.";
         assert signUpPassword != null : "fx:id=\"signUpPassword\" was not injected: check your FXML file 'signUp.fxml'.";
         assert signUpPhone != null : "fx:id=\"signUpPhone\" was not injected: check your FXML file 'signUp.fxml'.";
-        assert signUpPost != null : "fx:id=\"signUpPost\" was not injected: check your FXML file 'signUp.fxml'.";
+        assert signUpAdress != null : "fx:id=\"signUpPost\" was not injected: check your FXML file 'signUp.fxml'.";
 
+
+
+//        DatabaseHandler dbHandler = new DatabaseHandler();
+//        authSingUpButton.setOnAction(event ->{
+//            dbHandler.singUpUser(signUpName.getText());
+//                });
+        //
     }
 
 }

@@ -20,7 +20,7 @@
                 </Button>
             <TextField fx:id="signUpName" layoutX="184.0" layoutY="35.0" prefHeight="26.0" prefWidth="327.0" promptText="Имя" />
             <TextField fx:id="signUpPhone" layoutX="184.0" layoutY="78.0" prefHeight="26.0" prefWidth="327.0" promptText="Номер телефона" />
-            <TextField fx:id="signUpPost" layoutX="184.0" layoutY="127.0" prefHeight="26.0" prefWidth="327.0" promptText="Должность" />
+            <TextField fx:id="signUpAdress" layoutX="184.0" layoutY="127.0" prefHeight="26.0" prefWidth="327.0" promptText="Адресс" />
             </children>
         </AnchorPane>
         <Label layoutX="286.0" layoutY="32.0" text="mtWork" textFill="WHITE">
