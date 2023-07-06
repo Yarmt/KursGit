@@ -1,11 +1,16 @@
 package com.example.kurs2;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class Controller {
 
@@ -33,8 +38,21 @@ public class Controller {
         assert loginField != null : "fx:id=\"loginField\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert loginSingUpButton != null : "fx:id=\"loginSingUpButton\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert passwordField != null : "fx:id=\"passwordField\" was not injected: check your FXML file 'hello-view.fxml'.";
-        authSingUpButton.setOnAction(event -> {
-            System.out.println("Привет, пользователь");
+        loginSingUpButton.setOnAction(event -> {
+            loginSingUpButton.getScene().getWindow().hide();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("signUp.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
         });
 
     }
